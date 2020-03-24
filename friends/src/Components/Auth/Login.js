@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-react'
+import axios from "axios"
 
 export default function Login(props) {
+  const [error, setError] = useState()
   const[data, setData] = useState({
-    email: "",
+    username: "",
     password:"",
   });
 
@@ -13,19 +15,33 @@ export default function Login(props) {
       [event.target.name]: event.target.value,
     })
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    axios
+    .post("http://localhost:5000/api/login", data) //sends "data" to server
+    .then(result => {
+      console.log(result.data)
+    })
+    .catch(err => {
+      setError(err.response.data.message)
+    })
+  }
   return(
     <Grid textAlign="center" vertialAlign="middle">
       <Grid.Column style={{maxWidth: 450}}>
        <Header>Login</Header> 
-       <Form>
+       <Form onSubmit={handleSubmit}>
+         {error && <div className="error">{error} </div>}
          <Segment stacked>
            <Form.Input
-              fluid name="email" 
+              fluid name="username" 
               icon="mail" 
               iconPosition="left" 
-              placeholder="Email" 
-              type="email"
-              value={data.email}
+              placeholder="Username" 
+              type="text"
+              value={data.username}
               onChange={handleChange}
            />
 
