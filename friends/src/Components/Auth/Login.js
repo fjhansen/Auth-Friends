@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-react'
 import axios from "axios"
+import api from '../../utils/api'
 
 export default function Login(props) {
   const [error, setError] = useState()
@@ -19,8 +20,12 @@ export default function Login(props) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    axios
+    api()
     .post("http://localhost:5000/api/login", data) //sends "data" to server
+    // .post("http://localhost:5000/api/login", data, {
+    //   headers: {
+    //     Authorization: localStorage.getItem('token')
+    //   }
     .then(result => {
       console.log(result.data)
       localStorage.setItem("token", result.data.payload)
