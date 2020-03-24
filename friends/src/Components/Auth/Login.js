@@ -23,9 +23,10 @@ export default function Login(props) {
     .post("http://localhost:5000/api/login", data) //sends "data" to server
     .then(result => {
       console.log(result.data)
+      localStorage.setItem("token", result.data.payload)
     })
     .catch(err => {
-      setError(err.response.data.message)
+      // setError(err.response.data.message)
     })
   }
   return(
