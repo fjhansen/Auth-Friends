@@ -21,7 +21,7 @@ export default function Login(props) {
     event.preventDefault()
 
     api()
-    .post("http://localhost:5000/api/login", data) //sends "data" to server
+    .post("/api/login", data) //sends "data" to server
     // .post("http://localhost:5000/api/login", data, {
     //   headers: {
     //     Authorization: localStorage.getItem('token')
