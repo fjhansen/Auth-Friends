@@ -29,6 +29,7 @@ export default function Login(props) {
     .then(result => {
       console.log(result.data)
       localStorage.setItem("token", result.data.payload)
+      props.history.push("/protected");
     })
     .catch(err => {
       // setError(err.response.data.message)
